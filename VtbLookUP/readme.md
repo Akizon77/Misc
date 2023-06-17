@@ -10,7 +10,7 @@ https://github.com/tiebarandomuser/vtuberguildqueue/blob/main/finalresult.json
 
 ## 截图
 
-![]([.\Snipaste_2023-06-17_19-22-42.png]([https://github.com/Akizon77/Misc/blob/ca7fce4aa7ffa53a9231460497882c0edb6148c2/VtbLookUP/Snipaste_2023-06-17_19-22-42.png](https://github.com/Akizon77/Misc/blob/main/VtbLookUP/Snipaste_2023-06-17_19-22-42.png?raw=true)))
+![](https://github.com/Akizon77/Misc/blob/main/VtbLookUP/Snipaste_2023-06-17_19-22-42.png?raw=true)
 
 ## Dependencies
 
