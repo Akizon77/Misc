@@ -8,6 +8,6 @@ namespace JsonVis
 {
     public static class Data
     {
-        public static string Path = "C:\\Users\\hytf2\\Downloads\\finalresult.json";
+        public static string Path = "finalresult.json";
     }
 }
