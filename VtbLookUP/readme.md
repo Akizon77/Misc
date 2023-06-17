@@ -8,3 +8,13 @@ https://github.com/tiebarandomuser/vtuberguildqueue/blob/main/finalresult.json
 
 
 
+## 截图
+
+![](.\Snipaste_2023-06-17_19-22-42.png)
+
+## Dependencies
+
+Communitytoolkit.Mvvm
+
+Newtonsoft.Json
+
