@@ -80,7 +80,7 @@ namespace JsonVis
             Testtext = "Done";
         }
         [ObservableProperty]
-        public string selectedFilePath = "C:\\Users\\hytf2\\Downloads\\finalresult.json";
+        public string selectedFilePath = "finalresult.json";
         [RelayCommand]
         void Selectfile()
         {
