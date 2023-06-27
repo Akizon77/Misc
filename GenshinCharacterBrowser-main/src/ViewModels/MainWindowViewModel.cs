@@ -15,6 +15,7 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty]
     ObservableCollection<Character> charList = new();
+    //Not List<>!!
 
     [ObservableProperty]
     Character selectedItem;
