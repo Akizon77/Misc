@@ -7,6 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel>
+            <!--  ImageBrush是背景图片，为了实现圆角，Image是完全透明，为了撑大Border  -->
+            <!--  参考：https://github.com/Light-Beacon/PCL2-NewsHomepage/blob/main/News.xaml  -->
+            <Border BorderThickness="4" CornerRadius="5" BorderBrush="Pink">
+                <Border.Background>
+                    <ImageBrush 
+                        ImageSource="https://upload-bbs.miyoushe.com/upload/2022/10/19/263597625/ee4e64d8dbd7cc7d4d96b8bd8f90a341_681987042140751833.jpg">
+                    </ImageBrush>
+                </Border.Background>
+                <Image 
+                    Opacity="0"
+                    Source="https://upload-bbs.miyoushe.com/upload/2022/10/19/263597625/ee4e64d8dbd7cc7d4d96b8bd8f90a341_681987042140751833.jpg">
+                </Image>
+            </Border>
+            <Border Margin="0,-16,0,0" Background="Pink" Width="80" BorderThickness="4" CornerRadius="5">
+                <TextBlock HorizontalAlignment="Center" Margin="0,0,0,0" Text="蒙德" FontSize="16"/>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>
