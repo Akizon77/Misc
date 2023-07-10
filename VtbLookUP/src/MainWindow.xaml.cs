@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using System;
 using System.CodeDom;
@@ -95,5 +96,6 @@ namespace JsonVis
             await Task.Delay(600);
             copyNotice.Visibility = Visibility.Hidden;
         }
+
     }
 }

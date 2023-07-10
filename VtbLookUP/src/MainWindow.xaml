@@ -8,11 +8,31 @@
         mc:Ignorable="d"
         x:Name="window"
         WindowStartupLocation="CenterScreen"
-        SizeChanged="window_SizeChanged"
         Title="MainWindow" Height="600" Width="800">
 
     <Window.Resources>
         <CollectionViewSource x:Key="view" Filter="CollectionViewSource_Filter"/>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="2" CornerRadius="4"  Background="#fe9200">
+                            <ContentPresenter Margin="4"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#66fe9200"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+
+            </Style.Triggers>
+        </Style>
+        <local:HConverter x:Key="hconv"/>
+        <local:WConverter x:Key="wconv"/>
     </Window.Resources>
     <Grid>
         <Grid.DataContext>
@@ -32,7 +52,8 @@
                       ScrollViewer.CanContentScroll="False"
                       IsTextSearchEnabled="True"
                       x:Name="listView"
-                      
+                      Width="{Binding ElementName=window,Path=Width,Converter={StaticResource wconv}}"
+                      Height="{Binding ElementName=window,Path=Height,Converter={StaticResource hconv}}"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch"
                       ScrollViewer.VerticalScrollBarVisibility="Visible">
@@ -52,12 +73,13 @@
 
             <TextBlock TextWrapping="Wrap" Text="{Binding Testtext,Mode=TwoWay}"/>
             <Button Margin="16" Content="Click to load" Command="{Binding loadonceCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="复制UID" Click="Button_Click"/>
                 <Button Margin="40,0" Content="复制用户名" Click="Button_Click_1"/>
                 <Button Content="复制团体名" Click="Button_Click_2"/>
-                
             </StackPanel>
+            
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120">
             <Border x:Name="copyNotice" Background="#90142533" Width="100" Height="48" CornerRadius="26" d:Visibility="Visible" Visibility="Hidden">

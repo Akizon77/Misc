@@ -6,11 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace JsonVis
 {
@@ -81,6 +83,7 @@ namespace JsonVis
         }
         [ObservableProperty]
         public string selectedFilePath = "finalresult.json";
+
         [RelayCommand]
         void Selectfile()
         {
@@ -93,6 +96,15 @@ namespace JsonVis
             Data.Path = SelectedFilePath;
         }
 
+        [RelayCommand]
+        void CopyToClipboard(VT content)
+        {
+            if(content == null)
+            {
+                Clipboard.SetDataObject(content);
+            }
+            
+        }
 
     }
     public class VT
@@ -100,5 +112,9 @@ namespace JsonVis
         public string Uid { get; set; }
         public string Name { get;set; }
         public string Gid { get;set; }
+        public override string ToString()
+        {
+            return $"UID:{Uid},Name:{Name},Group:{Helpers.GetGroup(Gid)}";
+        }
     }
 }
