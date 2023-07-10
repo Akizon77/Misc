@@ -66,7 +66,7 @@ namespace JsonVis
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), e.Message);
+                MessageBox.Show($"寄！因为 {e.Message}", e.Message);
 
             }
 

@@ -98,5 +98,9 @@ namespace JsonVis
             copyNotice.Visibility = Visibility.Hidden;
         }
 
+        private void bd_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
