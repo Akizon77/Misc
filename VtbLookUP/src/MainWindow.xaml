@@ -12,12 +12,13 @@
 
     <Window.Resources>
         <CollectionViewSource x:Key="view" Filter="CollectionViewSource_Filter"/>
+        
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" BorderThickness="2" CornerRadius="4"  Background="#fe9200">
-                            <ContentPresenter Margin="4"/>
+                            <ContentPresenter Margin="6"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -27,27 +28,31 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-
-            </Style.Triggers>
         </Style>
+        
         <local:HConverter x:Key="hconv"/>
         <local:WConverter x:Key="wconv"/>
+        
     </Window.Resources>
     <Grid>
+        
         <Grid.DataContext>
             <local:ViewModle/>
         </Grid.DataContext>
+        
         <StackPanel Margin="6,0" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <!--  选择文件  -->
             <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBox Margin="4,0" Text="{Binding SelectedFilePath,Mode=TwoWay}" Width="400"/>
                 <Button Command="{Binding SelectfileCommand}" Margin="4,0" Content="  Select...  "/>
             </StackPanel>
+            <!--  搜索框  -->
             <StackPanel Margin="0,0,0,4" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock  Text="Search"/>
                 <TextBox Width="300" x:Name="fitterTextBox" 
                          KeyDown="fitterTextBox_KeyDown" TextChanged="FitterTextBox_TextChanged" Margin="10,0" Text="233"/>
             </StackPanel>
+            
             <ListView ItemsSource="{Binding Source={StaticResource view}}" 
                       ScrollViewer.CanContentScroll="False"
                       IsTextSearchEnabled="True"
@@ -70,10 +75,9 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-
-            <TextBlock TextWrapping="Wrap" Text="{Binding Testtext,Mode=TwoWay}"/>
+            <!--  加载  -->
             <Button Margin="16" Content="Click to load" Command="{Binding loadonceCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-
+            <!--  底部按钮  -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="复制UID" Click="Button_Click"/>
                 <Button Margin="40,0" Content="复制用户名" Click="Button_Click_1"/>
