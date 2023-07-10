@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,27 +45,31 @@ namespace JsonVis
                 });
 
                 var array = jo["fulldatalist"].ToArray();
-                array.ToList().ForEach(v => 
+
+                array.ToList().ForEach(v =>
                 {
                     var list = v["vlist"];
                     string gid = v["gid"].ToString();
-                    list.ToList().ForEach( x =>
+                    list.ToList().ForEach(x =>
                     {
+
                         VTS.Add(new VT()
                         {
-                            Uid =  x["uid"].ToString(),
+                            Uid = x["uid"].ToString(),
                             Name = x["name"].ToString(),
                             Gid = Helpers.GetGroup(gid)
                         });
                     });
+
+
                 });
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(),e.Message);
-                
+                MessageBox.Show(e.ToString(), e.Message);
+
             }
-            
+
 
             //var array = jo["fulldatalist"][0]["vlist"].ToArray();
             //array.ToList().ForEach(x =>
@@ -96,25 +102,78 @@ namespace JsonVis
             Data.Path = SelectedFilePath;
         }
 
-        [RelayCommand]
-        void CopyToClipboard(VT content)
-        {
-            if(content == null)
-            {
-                Clipboard.SetDataObject(content);
-            }
+        //[RelayCommand]
+        //void CopyToClipboard(string content)
+        //{
+        //    try
+        //    {
+        //        Clipboard.SetDataObject(content);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
             
-        }
+        //}
+        //[RelayCommand]
+        //void OpenInChrome(string uid)
+        //{
+        //    try
+        //    {
+        //        ProcessStartInfo psi = new ProcessStartInfo();
+        //        psi.UseShellExecute = true;
+        //        psi.FileName = $"https://space.bilibili.com/{uid}";
+        //        Process.Start(psi);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+            
+        //}
 
     }
-    public class VT
+    [ObservableObject]
+    public partial class VT
     {
         public string Uid { get; set; }
-        public string Name { get;set; }
-        public string Gid { get;set; }
+        public string Name { get; set; }
+        public string Gid { get; set; }
         public override string ToString()
         {
             return $"UID:{Uid},Name:{Name},Group:{Helpers.GetGroup(Gid)}";
+        }
+
+        [RelayCommand]
+        void CopyToClipboard(string content)
+        {
+            try
+            {
+                Clipboard.SetDataObject(content);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        [RelayCommand]
+        void OpenInChrome(string uid)
+        {
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.UseShellExecute = true;
+                psi.FileName = $"https://space.bilibili.com/{uid}";
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JsonVis"
+        xmlns:ct="clr-namespace:JsonVis.Controls"
         xmlns:model="clr-namespace:JsonVis"
         mc:Ignorable="d"
         x:Name="window"
@@ -12,13 +13,13 @@
 
     <Window.Resources>
         <CollectionViewSource x:Key="view" Filter="CollectionViewSource_Filter"/>
-        
+
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" BorderThickness="2" CornerRadius="4"  Background="#fe9200">
-                            <ContentPresenter Margin="6"/>
+                            <ContentPresenter Margin="4"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -29,61 +30,216 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <local:HConverter x:Key="hconv"/>
         <local:WConverter x:Key="wconv"/>
+        <!-- 输入框 -->
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="InputBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid  Background="{TemplateBinding Background}"  SnapsToDevicePixels="True">
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <Separator x:Name="border" Margin="0,2,0,0" VerticalAlignment="Bottom"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="False">
+                                <Setter Property="Opacity" TargetName="border" Value="0.65"/>
+                            </Trigger>
+                            <!--<Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
         
     </Window.Resources>
+    <Window.DataContext>
+        <local:ViewModle/>
+    </Window.DataContext>
     <Grid>
-        
-        <Grid.DataContext>
-            <local:ViewModle/>
-        </Grid.DataContext>
-        
         <StackPanel Margin="6,0" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <!--  选择文件  -->
             <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox Margin="4,0" Text="{Binding SelectedFilePath,Mode=TwoWay}" Width="400"/>
-                <Button Command="{Binding SelectfileCommand}" Margin="4,0" Content="  Select...  "/>
+                <TextBox Style="{DynamicResource InputBox}" Margin="4,0" Text="{Binding SelectedFilePath,Mode=TwoWay}" Width="400"/>
+                <Button ToolTip="点击选择文件" Command="{Binding SelectfileCommand}" Margin="4,0" Content="  Select...  "/>
             </StackPanel>
             <!--  搜索框  -->
             <StackPanel Margin="0,0,0,4" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock  Text="Search"/>
-                <TextBox Width="300" x:Name="fitterTextBox" 
+                <TextBox Style="{DynamicResource InputBox}" Width="300" x:Name="fitterTextBox" 
+                         ToolTip="搜索"
                          KeyDown="fitterTextBox_KeyDown" TextChanged="FitterTextBox_TextChanged" Margin="10,0" Text="233"/>
             </StackPanel>
-            
-            <ListView ItemsSource="{Binding Source={StaticResource view}}" 
-                      ScrollViewer.CanContentScroll="False"
-                      IsTextSearchEnabled="True"
+
+            <Border BorderBrush="#bf360c" BorderThickness="2" CornerRadius="4" 
+                    Width="{Binding ElementName=window,Path=Width,Converter={StaticResource wconv}}"
+                    Height="{Binding ElementName=window,Path=Height,Converter={StaticResource hconv}}">
+                <!-- VirtualizingPanel.VirtualizationMode="Recycling" 优化内存占用-->
+                <ItemsControl ItemsSource="{Binding Source={StaticResource view}}" 
                       x:Name="listView"
                       Width="{Binding ElementName=window,Path=Width,Converter={StaticResource wconv}}"
                       Height="{Binding ElementName=window,Path=Height,Converter={StaticResource hconv}}"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
                       ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <StackPanel Orientation="Horizontal" >
-                                <TextBlock FontSize="16" MinWidth="180" Text="{Binding Uid}"/>
-                                <TextBlock FontSize="16" MinWidth="400" Text="{Binding Name}"/>
-                                <TextBlock FontSize="16" MaxWidth="160" Text="{Binding Gid}"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                    <!-- VirtualizingStackPanel虚拟化！不然加载巨慢 -->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <!-- ScrollViewer设置CanContentScroll！不然加载巨慢 -->
+                            <ScrollViewer Margin="0,0,6,0" CanContentScroll="True" Padding="2" Focusable="False" >
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
 
-            </ListView>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid ToolTip="{Binding Name}">
+                                <Grid.Resources>
+                                    <!--鼠标悬浮-->
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#cccccccc"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <!-- 右键菜单 -->
+                                    <Style TargetType="ContextMenu">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Border Name="bd" Background="#ffab91" CornerRadius="4">
+                                                        <StackPanel Orientation="Vertical">
+                                                            <ItemsPresenter/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                    <!--<ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="bd" Property="Background" Value="Red"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>-->
+                                                </ControlTemplate>
+
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="ItemTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <ContentPresenter/>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <!--右键菜单每个小类-->
+                                    <Style TargetType="MenuItem">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="MenuItem">
+
+                                                    <StackPanel Margin="1" ToolTip="{TemplateBinding Header}">
+                                                        <Border Name="bd" CornerRadius="4">
+                                                            <TextBlock Margin="8,4" Text="{TemplateBinding Header}"/>
+                                                        </Border>
+                                                    </StackPanel>
+
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="bd" Property="Background" Value="#fbe9e7"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                    </Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="Height" Value="32"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <!--右键菜单-->
+                                <!-- 
+                                这里很难受，用RelativeSource找不到ViewModel
+                                放几个隐藏按钮用ElementName也找不到
+                                无奈之下把Command放进Model
+                                猜测是MenuItem和Window不在一个线程？
+                                -->
+                                <Grid.ContextMenu >
+                                    <ContextMenu >
+                                        <MenuItem Header="{Binding Name}" 
+                                                  Command="{Binding OpenInChromeCommand}"
+                                                  CommandParameter="{Binding Uid}"/>
+                                        <MenuItem Header="复制UID"
+                                                  Command="{Binding CopyToClipboardCommand}"
+                                                  CommandParameter="{Binding Uid}"/>
+                                        <MenuItem Header="复制昵称" Command="{Binding CopyToClipboardCommand}"
+                                                  CommandParameter="{Binding Name}"/>
+                                        <MenuItem Header="复制工会" Command="{Binding CopyToClipboardCommand}"
+                                                  CommandParameter="{Binding Gid}"/>
+                                    </ContextMenu>
+
+                                </Grid.ContextMenu>
+
+
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding Uid}"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Name}"/>
+                                <TextBlock MinWidth="88" HorizontalAlignment="Right" Text="{Binding Gid}"/>
+
+                                <Separator Background="#88888888"
+                                           Margin="0"
+                                           VerticalAlignment="Bottom"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </Border>
             <!--  加载  -->
-            <Button Margin="16" Content="Click to load" Command="{Binding loadonceCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button ToolTip="点击加载数据" Margin="16" Content="Click to load" Command="{Binding loadonceCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
             <!--  底部按钮  -->
+            <!--
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="复制UID" Click="Button_Click"/>
                 <Button Margin="40,0" Content="复制用户名" Click="Button_Click_1"/>
                 <Button Content="复制团体名" Click="Button_Click_2"/>
-            </StackPanel>
-            
+            </StackPanel
+             -->
+
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120">
             <Border x:Name="copyNotice" Background="#90142533" Width="100" Height="48" CornerRadius="26" d:Visibility="Visible" Visibility="Hidden">
@@ -92,5 +248,6 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        
     </Grid>
 </Window>

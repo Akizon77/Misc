@@ -39,8 +39,9 @@ namespace JsonVis
         {
             var vtb = e.Item as VT;
             var text = fitterTextBox.Text;
-            e.Accepted = vtb.Name.Contains(text) 
-                || vtb.Uid.Contains(text) 
+            e.Accepted = vtb.Name.Contains(text)
+                || vtb.Uid.Contains(text)
+                || vtb.Uid.Contains("UID")
                 || vtb.Gid.Contains(text);
         }
 
@@ -68,8 +69,8 @@ namespace JsonVis
         {
             //UID
 
-            var a = listView.SelectedItem as VT;
-            if (a != null) Clipboard.SetDataObject(a.Uid);
+            //var a = listView.SelectedItem as VT;
+            //if (a != null) Clipboard.SetDataObject(a.Uid);
             copyNotice.Visibility = Visibility.Visible;
             CancelNotice();
         }
@@ -77,8 +78,8 @@ namespace JsonVis
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //name
-            var a = listView.SelectedItem as VT;
-            if (a != null) Clipboard.SetDataObject(a.Name);
+            //var a = listView.SelectedItem as VT;
+            //if (a != null) Clipboard.SetDataObject(a.Name);
             copyNotice.Visibility = Visibility.Visible;
             CancelNotice();
         }
@@ -86,8 +87,8 @@ namespace JsonVis
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             //Group
-            var a = listView.SelectedItem as VT;
-            if (a != null) Clipboard.SetDataObject(a.Gid);
+            //var a = listView.SelectedItem as VT;
+            //if (a != null) Clipboard.SetDataObject(a.Gid);
             copyNotice.Visibility = Visibility.Visible;
             CancelNotice();
         }

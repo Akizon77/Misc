@@ -30,7 +30,7 @@ namespace JsonVis
         {
             if (value is double)
             {
-                return (double)value - 260;
+                return (double)value - 160;
             }
             throw new NotImplementedException();
         }
