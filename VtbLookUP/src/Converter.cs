@@ -8,6 +8,7 @@ using System.Windows.Data;
 
 namespace JsonVis
 {
+    //宽度转换 列表的宽度是窗口-80
     public class WConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -24,6 +25,7 @@ namespace JsonVis
             throw new NotImplementedException();
         }
     }
+    //高度转换 列表的高度是窗口-160
     public class HConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
