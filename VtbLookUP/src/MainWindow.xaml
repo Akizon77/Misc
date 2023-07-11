@@ -55,7 +55,7 @@
                                     BorderBrush="#d84315" 
                                     BorderThickness="1"
                                     CornerRadius="4">
-                                
+
                             </Border>
                             <ScrollViewer Margin="2" 
                                           HorizontalAlignment="Stretch" 
@@ -161,8 +161,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
-        
+
+
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -200,7 +200,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -423,10 +423,10 @@
             </Style.Triggers>
         </Style>
 
-        
-        
+
+
     </Window.Resources>
-    
+
     <Window.DataContext>
         <local:ViewModle/>
     </Window.DataContext>
@@ -555,6 +555,7 @@
                                 -->
                                 <Grid.ContextMenu >
                                     <ContextMenu >
+                                        <!--Command="{Binding OpenInChromeCommand}"-->
                                         <MenuItem Header="{Binding Name}" 
                                                   Command="{Binding OpenInChromeCommand}"
                                                   CommandParameter="{Binding Uid}"/>
@@ -609,5 +610,8 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        <Grid Visibility="Collapsed">
+            <Button Name="OpenInChromeBtn" Command="{Binding OpenInChromeCommand}"/>
+        </Grid>
     </Grid>
 </Window>
