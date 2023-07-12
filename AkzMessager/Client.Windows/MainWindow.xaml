@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Windows"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel >
+                <!-- ICON -->
+                <Image Width="40"
+                   Height="40"
+                   Margin="0,12"
+                   Source="https://lh3.googleusercontent.com/ogw/AGvuzYaAcYdCT6EabprWZHPmxLmM5Za1D3MvURzCbqlNQg=s32-c-mo" />
+                <RadioButton Content="Main" Margin="2,12"/>
+                <RadioButton Content="Content" Margin="2,12"/>
+                <RadioButton Content="Main" Margin="2,12"/>
 
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <StackPanel>
+
+                </StackPanel>
+                <d:Button Width="142" Height="420"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Title Bar-->
+        <Border Background="LightPink" x:Name="_titleBar" DragEnter="_titleBar_DragEnter" CornerRadius="4,4,0,0"/>
     </Grid>
 </Window>

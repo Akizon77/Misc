@@ -24,5 +24,10 @@ namespace Client.Windows
         {
             InitializeComponent();
         }
+
+        private void _titleBar_DragEnter(object sender, DragEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }
