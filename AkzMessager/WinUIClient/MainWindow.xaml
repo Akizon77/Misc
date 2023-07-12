@@ -16,16 +16,37 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!-- Title -->
-        <Border x:Name="_titleBar" Background="#f89aac"/>
+        <Border x:Name="_titleBar" Background="#f89aac">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <SymbolIcon Margin="12,0" Symbol="Message"/>
+                <TextBlock Text="AkzMessager"/>
+            </StackPanel>
+        </Border>
         <!-- Content -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!-- Menu -->
             <StackPanel Grid.Column="0" Background="AliceBlue" Orientation="Vertical">
                 <SymbolIcon Symbol="List" Margin="22"/>
+                <SymbolIcon Symbol="Message" Margin="22"/>
+                <SymbolIcon Symbol="OtherUser" Margin="22"/>
+                <SymbolIcon Symbol="People" Margin="22"/>
+                <SymbolIcon Symbol="Folder" Margin="22"/>
+                <SymbolIcon Symbol="Setting" Margin="22"/>
             </StackPanel>
+            <!-- Chat -->
+            <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Orientation="Horizontal" Grid.Column="1">
+                <StackPanel Background="AntiqueWhite" Orientation="Vertical" Width="180">
+                    <AutoSuggestBox Margin="12" x:Name="_searchBox" PlaceholderText="Tap to search" />
+                </StackPanel>
+                <StackPanel Background="AliceBlue">
+                    <Button/>
+                </StackPanel>
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Window>
