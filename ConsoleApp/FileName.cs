@@ -8,3 +8,14 @@
         }
     }
 }
+
+namespace NS2
+{
+    class MyClass2
+    {
+        void Show()
+        {
+           
+        }
+    }
+}
