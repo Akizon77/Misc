@@ -131,7 +131,7 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
-
+        <local:BindProxy x:Key="Root" Data="{Binding ElementName=window}" />
 
 
         <Style x:Key="ScrollViewerStyle1" TargetType="{x:Type ScrollViewer}">
@@ -552,19 +552,22 @@
                                 放几个隐藏按钮用ElementName也找不到
                                 无奈之下把Command放进Model
                                 猜测是MenuItem和Window不在一个线程？
+                                
+                                
+                                2023.7.18解决方案：使用BindProxy
                                 -->
                                 <Grid.ContextMenu >
                                     <ContextMenu >
                                         <!--Command="{Binding OpenInChromeCommand}"-->
                                         <MenuItem Header="{Binding Name}" 
-                                                  Command="{Binding OpenInChromeCommand}"
+                                                  Command="{Binding Source={StaticResource Root},Path=Data.DataContext.OpenInChromeCommand}"
                                                   CommandParameter="{Binding Uid}"/>
                                         <MenuItem Header="复制UID"
-                                                  Command="{Binding CopyToClipboardCommand}"
+                                                  Command="{Binding Source={StaticResource Root},Path=Data.DataContext.CopyToClipboardCommand}"
                                                   CommandParameter="{Binding Uid}"/>
-                                        <MenuItem Header="复制昵称" Command="{Binding CopyToClipboardCommand}"
+                                        <MenuItem Header="复制昵称" Command="{Binding Source={StaticResource Root},Path=Data.DataContext.CopyToClipboardCommand}"
                                                   CommandParameter="{Binding Name}"/>
-                                        <MenuItem Header="复制工会" Command="{Binding CopyToClipboardCommand}"
+                                        <MenuItem Header="复制工会" Command="{Binding Source={StaticResource Root},Path=Data.DataContext.CopyToClipboardCommand}"
                                                   CommandParameter="{Binding Gid}"/>
                                     </ContextMenu>
 
@@ -610,8 +613,5 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-        <Grid Visibility="Collapsed">
-            <Button Name="OpenInChromeBtn" Command="{Binding OpenInChromeCommand}"/>
-        </Grid>
     </Grid>
 </Window>

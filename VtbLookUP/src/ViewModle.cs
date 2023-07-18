@@ -27,6 +27,36 @@ namespace JsonVis
         [ObservableProperty]
         public ObservableCollection<VT> vTS = new();
 
+        [RelayCommand]
+        void CopyToClipboard(string content)
+        {
+            try
+            {
+                Clipboard.SetDataObject(content);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        [RelayCommand]
+        void OpenInChrome(string uid)
+        {
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.UseShellExecute = true;
+                psi.FileName = $"https://space.bilibili.com/{uid}";
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         [RelayCommand]
         async void loadonce()
@@ -134,6 +164,10 @@ namespace JsonVis
         //}
 
     }
+
+
+
+
     [ObservableObject]
     public partial class VT
     {
@@ -143,37 +177,6 @@ namespace JsonVis
         public override string ToString()
         {
             return $"UID:{Uid},Name:{Name},Group:{Helpers.GetGroup(Gid)}";
-        }
-
-        [RelayCommand]
-        void CopyToClipboard(string content)
-        {
-            try
-            {
-                Clipboard.SetDataObject(content);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-        }
-        [RelayCommand]
-        void OpenInChrome(string uid)
-        {
-            try
-            {
-                ProcessStartInfo psi = new ProcessStartInfo();
-                psi.UseShellExecute = true;
-                psi.FileName = $"https://space.bilibili.com/{uid}";
-                Process.Start(psi);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
         }
     }
 }
