@@ -560,6 +560,7 @@
                                     <ContextMenu >
                                         <!--Command="{Binding OpenInChromeCommand}"-->
                                         <MenuItem Header="{Binding Name}" 
+                                                  ToolTip="点击打开个人主页"
                                                   Command="{Binding Source={StaticResource Root},Path=Data.DataContext.OpenInChromeCommand}"
                                                   CommandParameter="{Binding Uid}"/>
                                         <MenuItem Header="复制UID"
