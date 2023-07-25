@@ -1,4 +1,12 @@
 ﻿using DDNS.CloudFlare;
+using Newtonsoft.Json.Linq;
+
+
+
+
+
+
+
 
 
 
@@ -17,7 +25,7 @@ while(true)
     try
     {
         Console.WriteLine($"本次解析 {secondLevelDomain} 到本机地址");
-        var ip = await Helpers.GetMyIPAddress();
+        var ip = await Helpers.GetMyIPAddress(useIPv6);
         Console.WriteLine($"本机公网IP : {ip}");
 
         var zoneID = await Helpers.GetZoneID(email, apiKey, domain);

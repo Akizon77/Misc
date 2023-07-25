@@ -83,30 +83,45 @@ namespace DDNS.CloudFlare
 
         }
 
-        public static async Task<string> GetMyIPAddress()
+        public static async Task<string> GetMyIPAddress(bool acceptIPv6 = true)
         {
             try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage();
-                request.RequestUri = new Uri("http://api.bilibili.com/x/web-interface/zone");
+
+                if (acceptIPv6)
+                    request.RequestUri = new Uri("http://api.bilibili.com/x/web-interface/zone");
+                else
+                    request.RequestUri = new Uri("https://net.lolicon.app/detail");
+
+
                 request.Method = HttpMethod.Get;
 
                 request.Headers.Add("Accept", "*/*");
                 request.Headers.Add("User-Agent", "Thunder Client (https://www.thunderclient.com)");
 
                 var response = await client.SendAsync(request);
-                var result = await response.Content.ReadAsStringAsync();
-                var j = JObject.Parse(result);
 
-                var ip = j["data"]["addr"].ToString();
+                var result = await response.Content.ReadAsStringAsync();
+
+
+
+
+                var j = JObject.Parse(result);
+                string ip;
+
+                if (acceptIPv6)
+                    ip = j["data"]["addr"].ToString();
+                else
+                    ip = j["ip"].ToString();
 
 
                 return ip;
             }
             catch (Exception)
             {
-                Console.WriteLine("无法通过Bilibili API获取本机IP");
+                Console.WriteLine("无法通过API获取本机IP");
             }
             return "";
         }
@@ -174,7 +189,7 @@ namespace DDNS.CloudFlare
 
                 ShowErrMsg(e);
             }
-            
+
 
 
         }
@@ -213,7 +228,7 @@ namespace DDNS.CloudFlare
                 Console.WriteLine(e);
             }
             return "";
-            
+
         }
         class DomainInfo
         {
