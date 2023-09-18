@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceMonitor", "PerformanceMonitor.csproj", "{3230431A-8F38-444C-A8F5-1E796FAB2A60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceMonitorViewModel", "..\PerformanceMonitorViewModel\PerformanceMonitorViewModel.csproj", "{9E9C3CE6-6104-4310-9E46-22ED73A0E722}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3230431A-8F38-444C-A8F5-1E796FAB2A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3230431A-8F38-444C-A8F5-1E796FAB2A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3230431A-8F38-444C-A8F5-1E796FAB2A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3230431A-8F38-444C-A8F5-1E796FAB2A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E9C3CE6-6104-4310-9E46-22ED73A0E722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E9C3CE6-6104-4310-9E46-22ED73A0E722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E9C3CE6-6104-4310-9E46-22ED73A0E722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E9C3CE6-6104-4310-9E46-22ED73A0E722}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA94C0C9-64F6-47F1-B0EE-A3CBA76AEC3E}
+	EndGlobalSection
+EndGlobal
