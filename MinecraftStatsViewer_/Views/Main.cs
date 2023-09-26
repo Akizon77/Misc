@@ -41,9 +41,20 @@ namespace MinecraftStatsViewer_.Views
 
             foreach(var d in statsData)
             {
-                var onlinetimes = JObject.Parse(d.Value)["stats"]["minecraft:custom"]["minecraft:play_time"].ToString();
+                string onlinetimes;
+                //var onlinetimes = JObject.Parse(d.Value)["stats"]["minecraft:custom"]["minecraft:play_time"].ToString();
+                try
+                {
+                     onlinetimes = JObject.Parse(d.Value)["stats"]["minecraft:custom"]["minecraft:deaths"].ToString();
+
+                }
+                catch
+                {
+                     onlinetimes = "0";
+                }
+                
                 var onlinetime = Convert.ToInt32(onlinetimes);
-                var realtime = onlinetime / 72000d;
+                var realtime = onlinetime;
                 var t = new MinecraftData{ PlayerName = d.Key, Value = realtime };
                 MinecraftDatas.Add(t);
             }   
