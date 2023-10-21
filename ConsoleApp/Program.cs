@@ -33,6 +33,8 @@ namespace P
                     File.WriteAllText(file, content, codeing.GetEncoding(936));
                     Console.WriteLine("\t转化成功");
                 }
+                Console.WriteLine("转化完成，窗口5秒后关闭...");
+                Thread.Sleep(5000);
             }
             catch (Exception ex)
             {
