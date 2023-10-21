@@ -7,7 +7,9 @@ namespace P
     {
         static void Main()
         {
-            Code003.Run("pwwkew");
+            int[] a = { 1,3 };
+            int[] b = { 2 };
+            Code004.Run(a,b);
         }
     }
 }
