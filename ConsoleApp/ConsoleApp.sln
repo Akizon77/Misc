@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp.csproj", "{8A0FAF8C-C1F3-493A-9780-89535F30433B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpNBT", "C:\Users\hytf2\source\repos\SharpNBT\SharpNBT\SharpNBT.csproj", "{9C068978-4655-44EA-AC60-4FB3D4C441F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8A0FAF8C-C1F3-493A-9780-89535F30433B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0FAF8C-C1F3-493A-9780-89535F30433B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A0FAF8C-C1F3-493A-9780-89535F30433B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C068978-4655-44EA-AC60-4FB3D4C441F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C068978-4655-44EA-AC60-4FB3D4C441F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C068978-4655-44EA-AC60-4FB3D4C441F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C068978-4655-44EA-AC60-4FB3D4C441F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
